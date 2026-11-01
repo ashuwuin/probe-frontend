@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "backend": "cd backend && uvicorn probe.app:app --host 127.0.0.1 --port 8000",
+    "start": "./start.sh"
   },
   "dependencies": {
     "clsx": "^2.1.1",

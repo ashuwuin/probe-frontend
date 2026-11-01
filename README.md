@@ -1,9 +1,11 @@
-# Probe Frontend GUI ⚡
+# Probe Frontend & Full-Stack Suite ⚡
 
 > **Evidence-Based Open Source Issue and Pull Request Triage**
 > Hacktoberfest Hack Day Sonipat · Ashwin Anand ([@ashuwuin](https://github.com/ashuwuin)), Prachi Vats ([@Prachivats-21](https://github.com/Prachivats-21)), Kaashvi Saini ([@Kaashviw3spaces](https://github.com/Kaashviw3spaces))
 
-A high-performance cyberpunk GUI client for [Probe](https://github.com/ashuwuin/Probe), built with **React 18**, **Vite**, **Tailwind CSS**, and interactive UI components from [React Bits](https://reactbits.dev).
+A high-performance cyberpunk GUI client and standalone verification engine for **Probe**, built with **React 18**, **Vite**, **Tailwind CSS**, and interactive UI components from [React Bits](https://reactbits.dev).
+
+This repository is **completely standalone**: it includes both the rich **React Bits GUI frontend** and the full **Python FastAPI backend engine** (`backend/`), with one-command orchestration.
 
 ---
 
@@ -12,6 +14,12 @@ A high-performance cyberpunk GUI client for [Probe](https://github.com/ashuwuin/
 - **React Bits `FluxLines` Background**: Real-time WebGL2 magnetic fluid shader with organic cyan and violet lines flowing across a deep `#08090d` canvas with cursor attraction.
 - **React Bits `TechText` Hero Title**: Interactive CAD vector layout displaying `PROBE // EVIDENCE-BASED TRIAGE` with real-time letter bounding crosshairs (`18 × 28`), baseline alignment guides, draggable glyphs, and click shockwaves.
 - **React Bits `TrueFocus` Subtitle**: Neon tracking corner brackets animating across subtitle keywords.
+- **Full Python Backend Engine (`backend/`)**:
+  - FastAPI webhook & live triage server.
+  - Deterministic AST verification and static security filters.
+  - Zero-network Docker sandbox reproduction engine.
+  - Ollama & regex-based claim extractor.
+  - Formal 4-rule truth-table logic with 0 wrong-invalid verdicts.
 - **Interactive Triage Studio**:
   - 5 quick-load presets for standard test cases (`CONFIRMED`, `INVALID`, `CANNOT REPRODUCE`, `CONFIRMED`, `UNCERTAIN`).
   - Text & Python reproduction snippet input or direct GitHub Issue/PR URL triage.
@@ -23,53 +31,38 @@ A high-performance cyberpunk GUI client for [Probe](https://github.com/ashuwuin/
 
 ---
 
-## 🚀 Quick Start
+## 🚀 One-Command Launch (Full-Stack)
 
-### 1. Install Dependencies
-
-```bash
-npm install
-```
-
-### 2. Run Local Development Server
+Run both the FastAPI backend (`http://127.0.0.1:8000`) and the React Vite frontend (`http://127.0.0.1:5173`) with a single command:
 
 ```bash
-npm run dev
+./start.sh
 ```
-
-The app will be available at **`http://127.0.0.1:5173/`**.
-
-### 3. Production Build
-
+*Or via npm:*
 ```bash
-npm run build
-npm run preview
+npm start
 ```
+
+The script automatically sets up the Python virtual environment in `backend/.venv`, installs dependencies, launches the FastAPI server, and opens the Vite dev server with proxy routing enabled.
 
 ---
 
-## 🔌 Backend Connection
+## 💻 Standalone Frontend Mode
 
-The Vite dev server includes a reverse proxy in `vite.config.ts`:
-- `/api` -> `http://127.0.0.1:8000/api`
-- `/health` -> `http://127.0.0.1:8000/health`
+You can also run the frontend entirely standalone without running Python:
 
-To run the Probe Python backend alongside this frontend:
 ```bash
-git clone https://github.com/ashuwuin/Probe.git
-cd Probe
-python -m venv .venv
-source .venv/bin/activate
-pip install -e .
-uvicorn probe.app:app --host 127.0.0.1 --port 8000
+npm install
+npm run dev
 ```
+
+The frontend includes offline fallback data for all worked examples, benchmark test matrix cases, and architectural simulator views.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Framework**: React 18 & TypeScript
-- **Bundler**: Vite 6
-- **Styling**: Tailwind CSS 3
+- **Frontend**: React 18, TypeScript, Vite 6, Tailwind CSS 3
 - **Animations & Shaders**: [React Bits](https://reactbits.dev) (WebGL2 & Canvas), `motion`
-- **Icons**: Lucide React
+- **Backend**: Python 3.10+, FastAPI, Pydantic v2, Uvicorn
+- **Verification Engine**: Python AST, Docker API, GitHub REST API

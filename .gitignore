@@ -23,6 +23,18 @@ pnpm-debug.log*
 .env.test.local
 .env.production.local
 
+# Python Virtual Environments & Cache
+.venv/
+backend/.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+*.egg-info/
+.coverage
+htmlcov/
+
 # System & Editor files
 .DS_Store
 Thumbs.db

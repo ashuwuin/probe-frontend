@@ -1,0 +1,70 @@
+{
+  "id": "03_cannot_reproduce",
+  "title": "format_price crashes on negative amounts",
+  "source": "`examples/repos/shop` (demo repo)",
+  "provenance": "synthetic issue against the demo repo (format_price(-5) actually returns '-5.00 INR')",
+  "verdict_source": "probe.verdict.evaluate_claim_verdict",
+  "overall": "cannot-reproduce",
+  "expected_overall": "cannot-reproduce",
+  "expected_claim_verdicts": {
+    "c1": "cannot-reproduce"
+  },
+  "status": "matches expected",
+  "claims": [
+    {
+      "id": "c1",
+      "type": "bug_behavior",
+      "file": null,
+      "symbol": "format_price",
+      "version": null,
+      "expected": null,
+      "actual": "ValueError: amount must be non-negative",
+      "repro": "from shop.billing import format_price\n\nprint(format_price(-5))\n",
+      "issue_number": null,
+      "quote": "Calling `format_price()` with a negative refund amount crashes the checkout page."
+    }
+  ],
+  "checks": {
+    "c1": [
+      {
+        "claim_id": "c1",
+        "checker": "static_ast",
+        "outcome": "supports",
+        "evidence": "`format_price` is defined in `shop/billing.py` at line 11 (function).",
+        "line_number": 11,
+        "details": {
+          "file": "shop/billing.py",
+          "kind": "function",
+          "qualname": "format_price",
+          "reason": "symbol_found",
+          "confidence": "high",
+          "file_mismatch": false,
+          "matches": 1,
+          "other_locations": []
+        }
+      },
+      {
+        "claim_id": "c1",
+        "checker": "sandbox",
+        "outcome": "contradicts",
+        "evidence": "Ran cleanly with exit code 0 (claimed crash or assertion failure did not occur)",
+        "line_number": null,
+        "details": {
+          "reason": "ran_clean",
+          "exit_code": 0,
+          "stdout": "-5.00 INR",
+          "has_assert": false
+        }
+      }
+    ]
+  },
+  "verdicts": [
+    {
+      "claim_id": "c1",
+      "status": "cannot-reproduce",
+      "confidence": "medium",
+      "evidence": "Ran cleanly with exit code 0 (claimed crash or assertion failure did not occur)",
+      "quote": "Calling `format_price()` with a negative refund amount crashes the checkout page."
+    }
+  ]
+}
